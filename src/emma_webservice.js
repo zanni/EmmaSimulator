@@ -55,11 +55,12 @@ var display_handler = function(){
 
 
 var host_handler = function(host) {
+	console.log("[EmmaSimulator] - GET - /node/"+host);
 	var host = Emma.findHost(host);
 	return Emma.PARSER.stringifyHost(host);
 };
 var resource_get_handler = function(host, resource){
-	console.log("[EmmaSimulator] - GET - /node/"+host);
+	
 	console.log("[EmmaSimulator] - GET - /node/"+host+"/"+resource);
 	var host = Emma.findResource(host,resource);
 	
@@ -75,7 +76,6 @@ var resource_put_handler = function(host, resource, body){
 	
 	var host = Emma.findResource(host,resource);
 	var data = body;
-	
 	
 	host[0].resource[0].data.value = data.value;
 	
@@ -116,7 +116,7 @@ app.get('/node/:host/:resource', function(req, res){
     res.send(response);
 });
 app.put('/node/:host/:resource', function(req, res){
-	console.log(req.body);
+
 	var response = resource_put_handler(req.params.host, req.params.resource, req.body);
     res.send(response);
 });
